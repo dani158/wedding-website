@@ -1,8 +1,81 @@
+:root{
+  --bg: #fff9f6;         /* soft ivory */
+  --text: #3b2b2b;       /* warm charcoal */
+  --muted: #ece5e5;      /* warm grey */
+  --accent: #dba6a0;     /* blush */
+  --card: #fff; 
+  --shadow: rgba(59,43,43,0.06);
+  --border: rgba(59,43,43,0.08);
+  --heading-font: 'Playfair Display', serif;
+  --body-font: 'Montserrat', sans-serif;
+}
+
 body {
-  margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  color: #333;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body-font);
   line-height: 1.6;
+}
+
+#hero {
+  text-align: center;
+  padding: 3.5rem 1rem;
+  height: 100vh;
+  background: url('../images/hero.jpg') center / cover no-repeat;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* ensure perfect centering */
+}
+
+/* Emphasized name treatment */
+#hero h1 {
+  font-family: var(--heading-font);
+  font-size: clamp(3rem, 9vw, 6rem);
+  margin: 0;
+  line-height: 1;
+  display: inline-block;
+  padding: 0.7rem 1.25rem;
+  border-radius: 14px;
+
+  /* soft glass panel to lift the text from the photo */
+  background: rgba(255,250,246,0.82);
+  backdrop-filter: blur(6px) saturate(120%);
+  border: 1px solid rgba(219,166,160,0.18);
+  box-shadow: 0 18px 40px rgba(43,31,31,0.14);
+
+  /* typography */
+  color: #3b2b2b; /* warm charcoal */
+  letter-spacing: 0.6px;
+  font-weight: 500;
+
+  /* layered shadows to create a delicate warm outline + depth */
+  text-shadow:
+    0 1px 0 rgba(255,255,255,0.85),        /* tiny highlight */
+    0 10px 30px rgba(43,31,31,0.12),       /* soft drop shadow */
+    -1px -1px 0 rgba(219,166,160,0.22),    /* warm outline (top-left) */
+    1px -1px 0 rgba(219,166,160,0.22),     /* warm outline (top-right) */
+    -1px 1px 0 rgba(219,166,160,0.22),     /* warm outline (bottom-left) */
+    1px 1px 0 rgba(219,166,160,0.22);      /* warm outline (bottom-right) */
+}
+
+/* small decorative flourish under the name */
+#hero h1::after {
+  display: block;
+  margin: 0.6rem auto 0;
+  font-size: 1.05rem;
+  color: var(--accent);
+  opacity: 0.95;
+  transform: translateY(2px);
+}
+
+/* Headings use the decorative serif for a wedding feel */
+h2, h3 {
+  font-family: var(--heading-font);
+  font-size: 2rem;
+  color: var(--text);
+  font-weight: 400;
 }
 
 section {
@@ -13,6 +86,8 @@ section {
 }
 
 #hero {
+  text-align: center;
+  padding: 3.5rem 1rem;
   height: 100vh;
   background: url('../images/hero.jpg') center / cover no-repeat;
   color: white;
@@ -21,13 +96,11 @@ section {
   justify-content: center;
 }
 
-#hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 3rem;
-}
+#hero h1 { font-size: 3rem; margin-bottom: .25rem; }
+#hero p { color: var(--muted); }
 
 .date {
-  font-size: 1.2rem;
+  font-size: 2rem;
   margin-top: 1rem;
 }
 
@@ -60,36 +133,54 @@ footer {
 
 /* Countdown wrapper */
 #countdown-wrapper {
-  margin-top: 2.5rem;
+  max-width: 900px;
+  margin: 2.5rem auto; /* center wrapper like other sections */
+  text-align: center;
+  padding: 0 1rem;
   animation: fadeUp 1.2s ease forwards;
 }
 
 .countdown-label {
-  font-size: 0.9rem;
+  font-family: inherit;    /* use site's default font (Montserrat) */
+  font-size: 1rem;        /* match regular body text size */
+  color: inherit;         /* use the same text color as the page */
+  font-weight: 400;       /* normal weight to match body */
   letter-spacing: 0.5px;
   margin-bottom: 1rem;
-  opacity: 0.85;
+  text-align: center;     /* keep it centered with the countdown */
+  line-height: 1.6;
 }
 
 /* Countdown layout */
 #countdown {
   display: flex;
   justify-content: center;
+  align-items: center; /* vertical align boxes */
   gap: 1rem;
   flex-wrap: wrap;
 }
 
 /* Time boxes */
 .time-box {
-  background: rgba(0, 0, 0, 0.45);
-  padding: 1rem 1.3rem;
-  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(250,244,242,0.95));
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 20px var(--shadow);
+  border-radius: 12px;
+  width: 120px;
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: .75rem;
   min-width: 90px;
   backdrop-filter: blur(4px);
 }
 
 /* Animated numbers */
 .time-box span {
+  font-family: var(--heading-font);
+  color: var(--text);
   font-size: 2rem;
   font-weight: bold;
   display: block;
@@ -98,10 +189,40 @@ footer {
 
 /* Small labels */
 .time-box small {
-  font-size: 0.7rem;
-  letter-spacing: 1.2px;
+  font-family: inherit;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
   text-transform: uppercase;
+  margin-top: .5rem;
 }
+
+#details ul {
+  list-style: none; /* remove bullets */
+  padding: 0;       /* remove left padding/indent */
+  margin: 0;        /* remove default top/bottom margin */
+}
+
+#details li {
+  margin-bottom: 0.5rem; /* keep vertical spacing between items */
+  /* optional: match other text styling */
+  color: var(--text);
+  font-size: 1rem;
+}
+
+a.button {
+  background: var(--accent);
+  color: #fff;
+  padding: .65rem 1rem;
+  border-radius: 30px;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 600;
+  box-shadow: 0 8px 16px rgba(219,166,160,0.18);
+}
+
+/* Gallery and footer polish */
+#gallery img { border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+footer { text-align: center; padding: 2rem 1rem; color: #dba6a0;}
 
 /* Fade-up animation */
 @keyframes fadeUp {
