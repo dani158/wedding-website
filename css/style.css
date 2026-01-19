@@ -215,7 +215,7 @@ footer {
   font-size: 1rem;
 }
 
-a.button {
+.button, a.button {
   background: var(--accent);
   color: #fff;
   padding: .65rem 1rem;
@@ -224,10 +224,118 @@ a.button {
   display: inline-block;
   font-weight: 600;
   box-shadow: 0 8px 16px rgba(219,166,160,0.18);
+  border: 0; /* remove default button border */
 }
 
+.button:focus-visible, a.button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(219,166,160,0.18); /* accessible focus ring */
+}
+
+.detail-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.map-link { background: #6aa84f; }
+
+/* Make the calendar button visually distinct */
+#add-to-calendar { background: var(--accent); }
+
 /* Gallery and footer polish */
+/* Keep original gallery-grid available, but add a horizontal carousel */
 #gallery img { border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+
+/* Carousel wrapper and buttons */
+.gallery-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Slideshow: overlayed images with fade transition */
+.gallery-carousel {
+  position: relative;
+  overflow: hidden;
+  height: clamp(260px, 45vw, 420px);
+}
+
+
+.gallery-carousel img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* keep full image visible without cropping */
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  object-fit: contain; /* show whole image, no cropping */
+  object-position: center;
+  /*background: var(--muted); /* visible as letterbox / safe backdrop */
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  opacity: 0;
+  transition: opacity 1.4s ease; /* slightly longer for an even smoother fade */
+  z-index: 1;
+}
+
+.gallery-carousel img.active {
+  opacity: 1;
+  z-index: 3;
+}
+
+/* Carousel controls */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.95);
+  border: 0;
+  padding: 0.4rem 0.65rem;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  cursor: pointer;
+  font-size: 1.4rem;
+  line-height: 1;
+  z-index: 6; /* ensure arrows always on top */
+}
+
+.carousel-btn.prev { left: 6px; }
+.carousel-btn.next { right: 6px; }
+
+.carousel-btn:focus { outline: 2px solid var(--accent); }
+
+@media (max-width: 480px) {
+  .carousel-btn { font-size: 1.1rem; padding: 0.3rem 0.5rem; }
+}
+
+/* Pagination dots */
+.gallery-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+
+.gallery-dots button {
+  width: 10px;
+  height: 10px;
+  background: rgba(0,0,0,0.18);
+  border: 0;
+  border-radius: 50%;
+  padding: 0;
+  cursor: pointer;
+}
+
+.gallery-dots button.active {
+  background: var(--accent);
+}
 footer { text-align: center; padding: 2rem 1rem; color: #dba6a0;}
 
 /* Fade-up animation */
@@ -239,6 +347,25 @@ footer { text-align: center; padding: 2rem 1rem; color: #dba6a0;}
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+  will-change: opacity, transform;
+}
+.reveal.active {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal.active {
+    transition: none;
+    transform: none;
   }
 }
 
@@ -290,3 +417,4 @@ footer { text-align: center; padding: 2rem 1rem; color: #dba6a0;}
     font-size: 0.9rem;
   }
 }
+

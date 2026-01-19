@@ -60,18 +60,28 @@
     <h2>Wedding Details</h2>
     <ul>
       <li><strong>Date:</strong> August 22, 2026</li>
-      <li><strong>Location:</strong> Villa Something, Italy</li>
+      <li><strong>Location:</strong> Villa Cariola, Caprino Veronese, Italy</li>
       <li><strong>Schedule:</strong> Ceremony at 4 PM</li>
+      <li><strong>Dresscode:</strong> Smart casual</li>
     </ul>
+    <div class="detail-actions">
+      <a class="button map-link" id="open-maps" href="https://www.google.com/maps/search/?api=1&query=Villa+Cariola+Caprino+Veronese+Italy" target="_blank" rel="noopener">Open in Google Maps</a>
+      <button class="button" id="add-to-calendar">Add to calendar</button>
+    </div>
   </section>
 
   <!-- GALLERY -->
   <section id="gallery">
     <h2>Gallery</h2>
-    <div class="gallery-grid">
-      <img src="images/gallery/img1.jpg" alt="Us together">
-      <img src="images/gallery/img2.jpg" alt="Engagement photo">
-      <img src="images/gallery/img3.jpg" alt="Holiday memory">
+    <div class="gallery-wrapper">
+      <button class="carousel-btn prev" aria-label="Previous">‹</button>
+      <div class="gallery-carousel" role="list">
+        <img src="images/gallery/img1.jpg" alt="Us together" role="listitem" loading="lazy">
+        <img src="images/gallery/img2.jpg" alt="Engagement photo" role="listitem" loading="lazy">
+        <img src="images/gallery/img3.jpg" alt="Holiday memory" role="listitem" loading="lazy">
+      </div>
+      <button class="carousel-btn next" aria-label="Next">›</button>
+      <div class="gallery-dots" aria-hidden="false"></div>
     </div>
   </section>
 
