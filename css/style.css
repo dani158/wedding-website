@@ -20,7 +20,7 @@ body {
 #hero {
   text-align: center;
   padding: 3.5rem 1rem;
-  height: 100vh;
+  height: 80vh;
   color: white;
   display: flex;
   flex-direction: column;
@@ -88,7 +88,7 @@ section {
 #hero {
   text-align: center;
   padding: 3.5rem 1rem;
-  height: 100vh;
+  height: 80vh;
   color: white;
   display: flex;
   flex-direction: column;
@@ -174,26 +174,19 @@ footer {
 
 /* Time boxes */
 .time-box {
-  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(250,244,242,0.95));
-  border: 1px solid var(--border);
-  box-shadow: 0 8px 20px var(--shadow);
-  border-radius: 12px;
-  width: 120px;
-  height: 110px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: .75rem;
-  min-width: 90px;
-  backdrop-filter: blur(4px);
+  gap: 0.5rem;
+  min-width: 80px;
 }
 
 /* Animated numbers */
 .time-box span {
   font-family: var(--heading-font);
   color: var(--text);
-  font-size: 2rem;
+  font-size: clamp(2.5rem, 8vw, 4rem);
   font-weight: bold;
   display: block;
   transition: transform 0.3s ease, opacity 0.3s ease;
@@ -201,11 +194,12 @@ footer {
 
 /* Small labels */
 .time-box small {
-  font-family: inherit;
-  font-size: 0.75rem;
+  font-family: var(--body-font);
+  font-size: 0.9rem;
   letter-spacing: 1px;
   text-transform: uppercase;
-  margin-top: .5rem;
+  color: var(--text);
+  font-weight: 500;
 }
 
 #details ul {
@@ -252,7 +246,7 @@ footer { text-align: center; padding: 2rem 1rem; color: #dba6a0;}
 @media (max-width: 768px) {
   #hero {
     padding: 2rem 1rem;
-    min-height: 100vh;
+    min-height: 60vh;
     height: auto;
   }
 
@@ -270,17 +264,16 @@ footer { text-align: center; padding: 2rem 1rem; color: #dba6a0;}
   }
 
   .time-box {
-    width: 80px;
-    height: 80px;
-    padding: 0.5rem;
+    min-width: 60px;
   }
 
   .time-box span {
-    font-size: 1.5rem;
+    font-size: clamp(2rem, 10vw, 3rem);
   }
 
   .time-box small {
-    font-size: 0.65rem;
+    font-size: 0.8rem;
+    color: var(--text);
   }
 
   .gallery-grid {
