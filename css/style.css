@@ -8,9 +8,15 @@
   --border: rgba(59,43,43,0.08);
   --heading-font: 'Playfair Display', serif;
   --body-font: 'Montserrat', sans-serif;
+  --site-gutter: clamp(1rem, 4vw, 2.25rem); /* horizontal padding for full-bleed layout */
 }
 
+/* make sizing predictable and remove default page gap */
+* { box-sizing: border-box; }
+
 body {
+  margin: 0;
+  padding: 0;
   background: var(--bg);
   color: var(--text);
   font-family: var(--body-font);
@@ -78,11 +84,23 @@ h2, h3 {
   font-weight: 400;
 }
 
+/* sections go edge-to-edge while keeping comfortable inner gutters */
 section {
-  padding: 4rem 1.5rem;
-  max-width: 900px;
-  margin: auto;
+  padding: 4rem var(--site-gutter);
+  max-width: none; /* remove centered fixed-width container */
+  width: 100%;
+  margin: 0;
   text-align: center;
+}
+
+/* Utility: centered content column for sections that should stay readable
+   while backgrounds remain full-bleed. Use inside a section like:
+   <section><div class="container">...content...</div></section>
+*/
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 #hero {
@@ -143,12 +161,12 @@ footer {
   text-align: center;
 }
 
-/* Countdown wrapper */
+/* Countdown wrapper - full width with horizontal gutter */
 #countdown-wrapper {
-  max-width: 900px;
-  margin: 2.5rem auto; /* center wrapper like other sections */
+  width: 100%;
+  margin: 2.5rem 0;
   text-align: center;
-  padding: 0 1rem;
+  padding: 0 var(--site-gutter);
   animation: fadeUp 1.2s ease forwards;
 }
 
@@ -218,18 +236,31 @@ footer {
 .button, a.button {
   background: var(--accent);
   color: #fff;
-  padding: .65rem 1rem;
+  /* Larger touch targets while keeping the text size unchanged */
+  padding: 1rem 1.75rem; /* ~2x vertical padding */
   border-radius: 30px;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 600;
   box-shadow: 0 8px 16px rgba(219,166,160,0.18);
   border: 0; /* remove default button border */
+  min-height: calc(2 * 1em); /* ensure height is approximately twice the font-size */
 }
 
 .button:focus-visible, a.button:focus-visible {
   outline: none;
   box-shadow: 0 0 0 4px rgba(219,166,160,0.18); /* accessible focus ring */
+}
+
+/* Ensure <button> elements match anchor .button styling exactly */
+button.button, .button, a.button {
+  font-family: var(--body-font);
+  font-size: 0.95rem; /* keep text size unchanged */
+  line-height: 1;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .detail-actions {
@@ -245,6 +276,29 @@ footer {
 /* Make the calendar button visually distinct */
 #add-to-calendar { background: var(--accent); }
 
+/* Ensure both action controls (anchor and button) are pixel-aligned
+   for padding, shadow and border-radius while keeping different colors */
+.detail-actions .map-link,
+.detail-actions #add-to-calendar,
+.detail-actions .button,
+.detail-actions a.button {
+  padding: 1rem 1.75rem; /* match the larger button sizing */
+  border-radius: 30px;
+  box-shadow: 0 8px 16px rgba(219,166,160,0.18);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+/* Responsive: reduce horizontal padding on small screens so buttons fit */
+@media (max-width: 520px) {
+  .button, a.button, .detail-actions .map-link, .detail-actions #add-to-calendar {
+    padding: 0.7rem 1rem;
+    min-height: calc(1.6 * 1em);
+  }
+}
+
 /* Gallery and footer polish */
 /* Keep original gallery-grid available, but add a horizontal carousel */
 #gallery img { border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
@@ -252,9 +306,9 @@ footer {
 /* Carousel wrapper and buttons */
 .gallery-wrapper {
   position: relative;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 1rem;
+  max-width: none;
+  margin: 0;
+  padding: 0 var(--site-gutter);
 }
 
 /* Slideshow: overlayed images with fade transition */
