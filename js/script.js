@@ -55,69 +55,71 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnPrev = document.querySelector('.carousel-btn.prev');
   const btnNext = document.querySelector('.carousel-btn.next');
 
-  if (!carousel || slides.length === 0) return;
+  if (!carousel || slides.length === 0) {
+    /* no carousel present on this page — skip carousel setup */
+  } else {
+    let current = 0;
+    const intervalMs = 4000;
+    let timer = null;
 
-  let current = 0;
-  const intervalMs = 4000;
-  let timer = null;
+    const showSlide = (idx) => {
+      slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+      current = idx;
+      // update dots
+      if (dotsContainer) {
+        Array.from(dotsContainer.children).forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+    };
 
-  const showSlide = (idx) => {
-    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
-    current = idx;
-    // update dots
-    if (dotsContainer) {
-      Array.from(dotsContainer.children).forEach((d, i) => d.classList.toggle('active', i === idx));
-    }
-  };
+    const next = () => showSlide((current + 1) % slides.length);
+    const prev = () => showSlide((current - 1 + slides.length) % slides.length);
 
-  const next = () => showSlide((current + 1) % slides.length);
-  const prev = () => showSlide((current - 1 + slides.length) % slides.length);
+    const startTimer = () => { timer = setInterval(next, intervalMs); };
+    const resetTimer = () => { if (timer) clearInterval(timer); startTimer(); };
 
-  const startTimer = () => { timer = setInterval(next, intervalMs); };
-  const resetTimer = () => { if (timer) clearInterval(timer); startTimer(); };
+    if (btnPrev) btnPrev.addEventListener('click', () => { prev(); resetTimer(); });
+    if (btnNext) btnNext.addEventListener('click', () => { next(); resetTimer(); });
 
-  if (btnPrev) btnPrev.addEventListener('click', () => { prev(); resetTimer(); });
-  if (btnNext) btnNext.addEventListener('click', () => { next(); resetTimer(); });
-
-  // Touch swipe handling (basic)
-  let startX = 0;
-  carousel.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
-  carousel.addEventListener('touchend', (e) => {
-    const endX = e.changedTouches[0].clientX;
-    const diff = startX - endX;
-    if (Math.abs(diff) > 40) {
-      if (diff > 0) next(); else prev();
-      resetTimer();
-    }
-  });
-
-  // Pause on hover (desktop)
-  carousel.addEventListener('mouseenter', () => { if (timer) clearInterval(timer); });
-  carousel.addEventListener('mouseleave', () => { resetTimer(); });
-
-  // initialize
-  showSlide(0);
-  // create pagination dots
-  if (dotsContainer) {
-    slides.forEach((s, i) => {
-      const btn = document.createElement('button');
-      btn.setAttribute('aria-label', `Slide ${i + 1}`);
-      btn.addEventListener('click', () => { showSlide(i); resetTimer(); });
-      dotsContainer.appendChild(btn);
+    // Touch swipe handling (basic)
+    let startX = 0;
+    carousel.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+    carousel.addEventListener('touchend', (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0) next(); else prev();
+        resetTimer();
+      }
     });
-    // mark first active
-    Array.from(dotsContainer.children)[0]?.classList.add('active');
-  }
-  startTimer();
 
-  // hide arrows when only one slide
-  const updateButtons = () => {
-    const need = slides.length > 1;
-    if (btnPrev) btnPrev.style.display = need ? 'block' : 'none';
-    if (btnNext) btnNext.style.display = need ? 'block' : 'none';
-  };
-  updateButtons();
-  window.addEventListener('resize', updateButtons);
+    // Pause on hover (desktop)
+    carousel.addEventListener('mouseenter', () => { if (timer) clearInterval(timer); });
+    carousel.addEventListener('mouseleave', () => { resetTimer(); });
+
+    // initialize
+    showSlide(0);
+    // create pagination dots
+    if (dotsContainer) {
+      slides.forEach((s, i) => {
+        const btn = document.createElement('button');
+        btn.setAttribute('aria-label', `Slide ${i + 1}`);
+        btn.addEventListener('click', () => { showSlide(i); resetTimer(); });
+        dotsContainer.appendChild(btn);
+      });
+      // mark first active
+      Array.from(dotsContainer.children)[0]?.classList.add('active');
+    }
+    startTimer();
+
+    // hide arrows when only one slide
+    const updateButtons = () => {
+      const need = slides.length > 1;
+      if (btnPrev) btnPrev.style.display = need ? 'block' : 'none';
+      if (btnNext) btnNext.style.display = need ? 'block' : 'none';
+    };
+    updateButtons();
+    window.addEventListener('resize', updateButtons);
+  }
 
   // --- Add to Calendar and Maps handlers ---
   const addToCalBtn = document.getElementById('add-to-calendar');
@@ -126,13 +128,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (addToCalBtn) {
     addToCalBtn.addEventListener('click', (e) => {
       // Event details
-      const title = 'Kincső & Dani Wedding';
-      const location = 'Villa Something, Italy';
-      const description = 'Ceremony at 16:00 (local time). We can\'t wait to celebrate with you!';
+      const title = 'Kincső & Dani Lagzi';
+      const location = 'Rózsa Sándor Csárda, Zsombó';
+      const description = 'A vendégvárás kezdete: 16:00. Alig várjuk, hogy együtt bulizhassunk!:)';
 
       // local date/time (assume local timezone)
       const startLocal = new Date(2026, 7, 22, 16, 0, 0); // Month is 0-indexed: 7 = August
-      const endLocal = new Date(startLocal.getTime() + 3 * 60 * 60 * 1000); // 3 hour event
+      const endLocal = new Date(startLocal.getTime() + 14 * 60 * 60 * 1000); // 14 hour event
 
       // Helper: format to YYYYMMDDTHHMMSSZ for Google Calendar (UTC)
       const toUTCStringForCalendar = (d) => {

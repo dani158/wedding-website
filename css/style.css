@@ -35,7 +35,7 @@ body {
 
 /* Sections and centered container: keep content readable and centered below the hero */
 section {
-  padding: 4rem var(--site-gutter);
+  padding: 2rem var(--site-gutter);
   max-width: none;
   width: 100%;
   margin: 0;
@@ -140,7 +140,7 @@ section {
 /* Hero uses a CSS background-image now (replaces the absolute <img> approach). 
    Keep accessibility via role + aria-label on the section element. */
 #hero {
-  background-image: url('../images/hero.jpg');
+  background-image: url('../images/hero.webp');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -219,6 +219,15 @@ section {
   text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
+/* Separator between the details list and the more-info paragraph */
+.more-info {
+  border-top: 2px solid rgba(59,43,43,0.12); /* slightly stronger, wider warm line */
+  padding-top: 1rem;
+  margin-top: 1.25rem;
+  color: var(--text);
+  opacity: 0.95;
+}
+
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -244,12 +253,13 @@ footer {
   padding: 2rem;
   background: #f5f5f5;
   text-align: center;
+  font-size: 0.8rem; 
 }
 
 /* Countdown wrapper - full width with horizontal gutter */
 #countdown-wrapper {
   width: 100%;
-  margin: 2.5rem 0;
+  margin: 1.25rem 0;
   text-align: center;
   padding: 0 var(--site-gutter);
   animation: fadeUp 1.2s ease forwards;
@@ -297,7 +307,7 @@ footer {
 
 /* Small labels */
 .time-box small {
-  font-family: var(--body-font);
+  font-family: Garamond, 'Times New Roman', Times, serif;
   font-size: 0.9rem;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -309,6 +319,11 @@ footer {
   list-style: none; /* remove bullets */
   padding: 0;       /* remove left padding/indent */
   margin: 0;        /* remove default top/bottom margin */
+}
+
+/* Use Garamond for the details section for a classical look */
+#details {
+  font-family: Garamond, 'Times New Roman', Times, serif;
 }
 
 #details li {
@@ -341,7 +356,7 @@ footer {
 
 /* Ensure <button> elements match anchor .button styling exactly */
 button.button, .button, a.button {
-  font-family: var(--body-font);
+  font-family: Garamond, 'Times New Roman', Times, serif;
   font-size: 0.95rem; /* keep text size unchanged */
   line-height: 1;
   -webkit-appearance: none;
@@ -354,9 +369,29 @@ button.button, .button, a.button {
   justify-content: center;
   gap: 0.75rem;
   flex-wrap: wrap;
+  align-items: stretch; /* ensure flex items match height */
 }
 
 .map-link { background: #6aa84f; }
+
+/* Make the RSVP button match the detail action buttons in size and behavior */
+#rsvp .button, #rsvp a.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;       /* desktop default */
+  max-width: 200px;
+  min-width: 160px;
+  padding: 1rem 1.75rem; /* match other buttons */
+  box-sizing: border-box;
+  white-space: nowrap;
+  font-family: Garamond, 'Times New Roman', Times, serif;
+}
+
+/* Apply Garamond to the entire RSVP section for a consistent look */
+#rsvp {
+  font-family: Garamond, 'Times New Roman', Times, serif;
+}
 
 /* Make the calendar button visually distinct */
 #add-to-calendar { background: var(--accent); }
@@ -374,6 +409,12 @@ button.button, .button, a.button {
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  /* prefer equal heights when displayed side-by-side */
+  flex: 1 1 200px; /* grow, shrink, base 200px */
+  min-width: 160px; /* ensure touchable size */
+  max-width: 200px; /* cap desktop button width so they don't grow bulky */
+  box-sizing: border-box;
+  white-space: nowrap; /* avoid internal wrapping that increases height */
 }
 
 /* Responsive: reduce horizontal padding on small screens so buttons fit */
@@ -382,6 +423,22 @@ button.button, .button, a.button {
     padding: 0.7rem 1rem;
     min-height: calc(1.6 * 1em);
   }
+}
+
+/* On small viewports, prevent buttons from stretching full width.
+   Make them sized to content but keep consistent heights. */
+@media (max-width: 420px) {
+  .detail-actions .map-link,
+  .detail-actions #add-to-calendar,
+  .detail-actions .button,
+  .detail-actions a.button {
+    flex: 0 1 auto;      /* don't force them to fill the row */
+    max-width: 200px;    /* cap width so they remain consolidated */
+    min-width: 120px;    /* still keep touchable size */
+    width: min(200px, 92%); /* ensure both buttons take same width when stacked */
+    padding: 0.9rem 1rem; /* consistent vertical padding for equal heights */
+  }
+  .detail-actions { justify-content: center; }
 }
 
 /* Gallery and footer polish */
@@ -475,7 +532,7 @@ button.button, .button, a.button {
 .gallery-dots button.active {
   background: var(--accent);
 }
-footer { text-align: center; padding: 2rem 1rem; color: #dba6a0;}
+footer { text-align: center; padding: 1rem 0.8rem; color: #dba6a0;}
 
 /* Fade-up animation */
 @keyframes fadeUp {
@@ -511,7 +568,7 @@ footer { text-align: center; padding: 2rem 1rem; color: #dba6a0;}
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   #hero {
-    padding: 2rem 1rem;
+    padding: 1rem 1rem;
     min-height: 60vh;
     height: auto;
   }
@@ -522,7 +579,7 @@ footer { text-align: center; padding: 2rem 1rem; color: #dba6a0;}
   }
 
   section {
-    padding: 2rem 1rem;
+    padding: 1rem 1rem;
   }
 
   #countdown {
