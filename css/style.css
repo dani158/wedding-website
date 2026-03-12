@@ -359,7 +359,7 @@ footer {
 button.button, .button, a.button {
   font-family: Garamond, 'Times New Roman', Times, serif;
   font-size: 1rem; /* keep text size unchanged */
-  width: 200px;       /* desktop default */
+  width: 220px;       /* desktop default */
   height: 40px;
   line-height: 1;
   -webkit-appearance: none;
@@ -382,10 +382,10 @@ button.button, .button, a.button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 200px;       /* desktop default */
+  width: 220px;       /* desktop default */
   height: 40px;
-  max-width: 200px;
-  min-width: 160px;
+  max-width: 220px;
+  min-width: 220px;
   padding: 1rem 1.75rem; /* match other buttons */
   box-sizing: border-box;
   white-space: nowrap;
@@ -418,13 +418,13 @@ button.button, .button, a.button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 200px;       /* desktop default */
+  width: 220px;       /* desktop default */
   height: 40px;
   text-decoration: none;
   /* prefer equal heights when displayed side-by-side */
-  flex: 1 1 200px; /* grow, shrink, base 200px */
-  min-width: 160px; /* ensure touchable size */
-  max-width: 200px; /* cap desktop button width so they don't grow bulky */
+  flex: 1 1 220px; /* grow, shrink, base 220px */
+  min-width: 220px; /* ensure touchable size */
+  max-width: 220px; /* cap desktop button width so they don't grow bulky */
   box-sizing: border-box;
   white-space: nowrap; /* avoid internal wrapping that increases height */
 }
@@ -445,9 +445,9 @@ button.button, .button, a.button {
   .detail-actions .button,
   .detail-actions a.button {
     flex: 0 1 auto;      /* don't force them to fill the row */
-    max-width: 200px;    /* cap width so they remain consolidated */
-    min-width: 120px;    /* still keep touchable size */
-    width: min(200px, 92%); /* ensure both buttons take same width when stacked */
+    max-width: 220px;    /* cap width so they remain consolidated */
+    min-width: 220px;    /* still keep touchable size */
+    width: min(220px, 92%); /* ensure both buttons take same width when stacked */
     padding: 0.9rem 1rem; /* consistent vertical padding for equal heights */
   }
   .detail-actions { justify-content: center; }
