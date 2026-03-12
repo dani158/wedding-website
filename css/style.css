@@ -261,7 +261,7 @@ footer {
   width: 100%;
   margin: 1.25rem 0;
   text-align: center;
-  padding: 0 var(--site-gutter);
+  padding: 15px var(--site-gutter);
   animation: fadeUp 1.2s ease forwards;
 }
 
@@ -324,13 +324,14 @@ footer {
 /* Use Garamond for the details section for a classical look */
 #details {
   font-family: Garamond, 'Times New Roman', Times, serif;
+  font-size: 1.5rem;
 }
 
 #details li {
   margin-bottom: 0.5rem; /* keep vertical spacing between items */
   /* optional: match other text styling */
   color: var(--text);
-  font-size: 1rem;
+  font-size: 1.25rem;
 }
 
 .button, a.button {
@@ -357,7 +358,9 @@ footer {
 /* Ensure <button> elements match anchor .button styling exactly */
 button.button, .button, a.button {
   font-family: Garamond, 'Times New Roman', Times, serif;
-  font-size: 0.95rem; /* keep text size unchanged */
+  font-size: 1rem; /* keep text size unchanged */
+  width: 200px;       /* desktop default */
+  height: 40px;
   line-height: 1;
   -webkit-appearance: none;
   appearance: none;
@@ -380,6 +383,7 @@ button.button, .button, a.button {
   align-items: center;
   justify-content: center;
   width: 200px;       /* desktop default */
+  height: 40px;
   max-width: 200px;
   min-width: 160px;
   padding: 1rem 1.75rem; /* match other buttons */
@@ -391,6 +395,12 @@ button.button, .button, a.button {
 /* Apply Garamond to the entire RSVP section for a consistent look */
 #rsvp {
   font-family: Garamond, 'Times New Roman', Times, serif;
+}
+
+/* Apply Garamond to the entire RSVP section for a consistent look */
+#more_info {
+  font-family: Garamond, 'Times New Roman', Times, serif;
+  font-size: 1.25rem;
 }
 
 /* Make the calendar button visually distinct */
@@ -408,6 +418,8 @@ button.button, .button, a.button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 200px;       /* desktop default */
+  height: 40px;
   text-decoration: none;
   /* prefer equal heights when displayed side-by-side */
   flex: 1 1 200px; /* grow, shrink, base 200px */
